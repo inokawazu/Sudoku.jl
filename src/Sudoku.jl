@@ -53,12 +53,12 @@ end
 function solve!(board::Board)
 	for row ∈ 1:9
 		for column ∈ 1:9
+
+			is_solved(board) && continue
 			
 			moves = possible_moves(board, row, column)
 
 			isempty(moves) && continue
-
-			is_solved(board) && continue
 
 			for move in moves
 				set_element!(board, row, column, move)
