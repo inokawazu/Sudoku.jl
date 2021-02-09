@@ -91,4 +91,23 @@ function solve!(board::Board)
 	end
 end
 
+function solve(tile_string::AbstractString)
+	length(tile_string) != 81 && error("The tile string, $tile_string, must of length 81.")
+
+	for char in tile_string
+		isdigit(char) || error("Only digits in your tile string, $tile_string.")
+	end
+
+	board = Board()
+
+	for i in 1:81
+		element = parse(Int64,tile_string[i])
+		set_element!(board,((i-1) % 9) + 1, (i-1)÷9 + 1, element)
+	end
+
+	solve!(board)
+
+	return board
+end
+
 end # module
