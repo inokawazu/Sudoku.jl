@@ -33,7 +33,7 @@ function is_valid(board::Board)
 end
 
 function is_solved(board::Board)
-	error("TBD")
+	0 ∉ board.tiles
 end
 
 function set_element!(board::Board, row_num::Int64, col_num::Int64, element::Int64)
@@ -67,7 +67,6 @@ function solve!(board::Board)
 
 				is_solved(board) && break
 			end
-#		for pos_move ∈ possible_moves(board, row, column)
 
 		end
 	end
