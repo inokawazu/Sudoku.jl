@@ -24,12 +24,37 @@ function is_valid(board::Board)
 	error("TBD")
 end
 
+function is_solved(board::Board)
+	error("TBD")
+end
+
 function set_element!(board::Board,row_num::Int64,col_num::Int64)
 	error("TBD")
 end
 
 function possible_moves(board::Board,row_num::Int64,col_num::Int64)
 	error("TBD")
+end
+
+function solve!(board::Board)
+	for row ∈ 1:9
+		for column ∈ 1:9
+			
+			moves = possible_moves(board, row, column)
+
+			isempty(moves) && continue
+
+			is_solved(board) && continue
+
+			for move in moves
+				set_element!(board, row, column)
+
+				is_solved(board) && break
+			end
+#		for pos_move ∈ possible_moves(board, row, column)
+
+		end
+	end
 end
 
 end # module
