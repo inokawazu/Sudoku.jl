@@ -43,9 +43,7 @@ end
 function possible_moves(board::Board,row_num::Int64,col_num::Int64)
 	element = get_element(board,row_num, col_num)
 
-	pos_moves = Int64[]
-
-	element == 0 || return pos_moves
+	element == 0 || return Int64[]
 
 	return [i for i ∈ 1:9 if i∉get_row(board, row_num) 
 													 && i∉get_column(board, col_num) 
@@ -66,6 +64,8 @@ function solve!(board::Board)
 				set_element!(board, row, column, move)
 
 				is_solved(board) && break
+
+				solve!(board)
 			end
 
 		end
