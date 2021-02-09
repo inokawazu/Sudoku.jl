@@ -25,11 +25,24 @@ to_block_index(index::Int64) = index + 1 - ((index - 1) % 3)
 function get_block(board::Board, row_num::Int64,col_num::Int64)
 	block_row = to_block_index(row_num)
 	block_col = to_block_index(col_num)
-	return board.tiles[block_row-1:block_row+1,block_col-1:block_col+1]
+	return (board.tiles[block_row-1:block_row+1,block_col-1:block_col+1])[:]
 end
 
 function is_valid(board::Board)
-	error("TBD")
+
+	for i∈1:9,k ∈ 1:9
+			count(==(k),get_row(board,i)) > 1 && return false
+	end
+
+	for i∈1:9,k ∈ 1:9
+			count(==(k),get_column(board,i)) > 1 && return false
+	end
+
+	for i∈2:3:8,j∈2:3:8,k ∈ 1:9
+		count(==(k),get_block(board,i,j)) > 1 && return false
+	end
+
+	return true
 end
 
 function is_solved(board::Board)
@@ -62,8 +75,12 @@ function solve!(board::Board)
 			isempty(moves) && continue
 
   		for move in moves
+
+				println("Set row, col to $row, $column, to $move")
   			set_element!(board, row, column, move)
 
+				is_valid(board) || set_element!(board, row, column, 0)
+				
   			is_solved(board) && break
 
   			solve!(board)
