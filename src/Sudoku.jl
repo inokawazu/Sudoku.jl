@@ -8,6 +8,10 @@ function Board(; state=:unknown)
 	state == :unknown && Board(zeros(Int64, 9, 9))
 end
 
+function get_element(board::Board, row_num::Int64,col_num::Int64)
+	return board.tiles[row_num,col_num]
+end
+
 function get_row(board::Board, row_num::Int64)
 	error("TBD")
 end
@@ -33,7 +37,15 @@ function set_element!(board::Board,row_num::Int64,col_num::Int64)
 end
 
 function possible_moves(board::Board,row_num::Int64,col_num::Int64)
-	error("TBD")
+	element = get_element(board,row_num, col_num)
+
+	pos_moves = Int64[]
+
+	element == 0 return pos_moves
+
+	return [i for i ∈ 1:9 if i∉get_row(board,row_num) 
+												&& i∉get_column(board,col_num) 
+												&& i∉get_block(board,row_num, col_num)]
 end
 
 function solve!(board::Board)
