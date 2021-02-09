@@ -45,7 +45,7 @@ function possible_moves(board::Board,row_num::Int64,col_num::Int64)
 
 	pos_moves = Int64[]
 
-	element == 0 && return pos_moves
+	element == 0 || return pos_moves
 
 	return [i for i ∈ 1:9 if i∉get_row(board, row_num) 
 													 && i∉get_column(board, col_num) 
