@@ -20,8 +20,12 @@ function get_column(board::Board, col_num::Int64)
 	return board.tiles[:,col_num]
 end
 
+to_block_index(index::Int64) = index + 1 - ((index - 1) % 3)
+
 function get_block(board::Board, row_num::Int64,col_num::Int64)
-	error("TBD")
+	block_row = to_block_index(row_num)
+	block_col = to_block_index(col_num)
+	return board.tiles[block_row-1:block_row+1,block_col-1:block_col+1]
 end
 
 function is_valid(board::Board)
