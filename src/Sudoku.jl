@@ -51,6 +51,8 @@ function possible_moves(board::Board,row_num::Int64,col_num::Int64)
 end
 
 function solve!(board::Board)
+	moves_history = []
+
 	for row ∈ 1:9
 		for column ∈ 1:9
 
@@ -60,16 +62,19 @@ function solve!(board::Board)
 
 			isempty(moves) && continue
 
-			for move in moves
-				set_element!(board, row, column, move)
+			push!(moves_history, moves)
+##		for move in moves
+##			set_element!(board, row, column, move)
 
-				is_solved(board) && break
+##			is_solved(board) && break
 
-				solve!(board)
-			end
+##			solve!(board)
+##		end
 
 		end
 	end
+
+	println(moves_history)
 end
 
 end # module
