@@ -32,8 +32,8 @@ function is_solved(board::Board)
 	error("TBD")
 end
 
-function set_element!(board::Board,row_num::Int64,col_num::Int64)
-	error("TBD")
+function set_element!(board::Board, row_num::Int64, col_num::Int64, element::Int64)
+	board.tiles[row_num,col_num] = element 
 end
 
 function possible_moves(board::Board,row_num::Int64,col_num::Int64)
@@ -59,7 +59,7 @@ function solve!(board::Board)
 			is_solved(board) && continue
 
 			for move in moves
-				set_element!(board, row, column)
+				set_element!(board, row, column, move)
 
 				is_solved(board) && break
 			end
