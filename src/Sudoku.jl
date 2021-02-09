@@ -13,11 +13,11 @@ function get_element(board::Board, row_num::Int64,col_num::Int64)
 end
 
 function get_row(board::Board, row_num::Int64)
-	board.tiles[row_num,:]
+	return board.tiles[row_num,:]
 end
 
 function get_column(board::Board, col_num::Int64)
-	error("TBD")
+	return board.tiles[:,col_num]
 end
 
 function get_block(board::Board, row_num::Int64,col_num::Int64)
