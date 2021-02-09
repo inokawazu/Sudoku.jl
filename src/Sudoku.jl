@@ -64,31 +64,31 @@ function possible_moves(board::Board,row_num::Int64,col_num::Int64)
 end
 
 function solve!(board::Board)
+	index = 1
+	backtrack_dict = Dict()
 
-	for row ∈ 1:9
-		for column ∈ 1:9
+	unknown_tiles = [(i,j) for i∈1:9,j∈1:9 if get_element(board, i, j) == 0][:]
 
-			is_solved(board) && continue
-			
-			moves = possible_moves(board, row, column)
+	while !is_solved(board) && index <= length(unknown_tiles)
 
-			isempty(moves) && continue
+		row, column = unknown_tiles[index]
 
-  		for move in moves
-
-				println("Set row, col to $row, $column, to $move")
-  			set_element!(board, row, column, move)
-
-				is_valid(board) || set_element!(board, row, column, 0)
-				
-  			is_solved(board) && break
-
-  			solve!(board)
-  		end
-
+		if !haskey(backtrack_dict, (row, column))
+			push!(backtrack_dict, (row, column) => possible_moves(board, row, column))
 		end
-	end
 
+		if isempty(backtrack_dict[(row,column)])
+			delete!(backtrack_dict, (row,column))
+			set_element!(board,row, column, 0)
+			index -= 1
+			continue
+		end
+
+		next_move = popfirst!(backtrack_dict[(row, column)])
+		set_element!(board, row, column, next_move)
+		index += 1
+
+	end
 end
 
 end # module
