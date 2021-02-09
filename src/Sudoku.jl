@@ -8,6 +8,23 @@ function Board(; state=:unknown)
 	(state == :unknown) && Board(zeros(Int64, 9, 9))
 end
 
+function Board(tile_string::AbstractString)
+	length(tile_string) != 81 && error("The tile string, $tile_string, must of length 81.")
+
+	for char in tile_string
+		isdigit(char) || error("Only digits in your tile string, $tile_string.")
+	end
+
+	board = Board()
+
+	for i in 1:81
+		element = parse(Int64,tile_string[i])
+		set_element!(board,(i-1)÷9 + 1, ((i-1) % 9) + 1, element)
+	end
+
+	return board
+end
+
 function get_element(board::Board, row_num::Int64,col_num::Int64)
 	return board.tiles[row_num,col_num]
 end
@@ -67,7 +84,7 @@ function solve!(board::Board)
 	index = 1
 	backtrack_dict = Dict()
 
-	unknown_tiles = [(j,i) for i∈1:9,j∈1:9 if get_element(board, i, j) == 0][:]
+	unknown_tiles = [(i,j) for i∈1:9,j∈1:9 if get_element(board, i, j) == 0][:]
 
 	while !is_solved(board) && index <= length(unknown_tiles)
 
@@ -92,21 +109,8 @@ function solve!(board::Board)
 end
 
 function solve(tile_string::AbstractString)
-	length(tile_string) != 81 && error("The tile string, $tile_string, must of length 81.")
-
-	for char in tile_string
-		isdigit(char) || error("Only digits in your tile string, $tile_string.")
-	end
-
-	board = Board()
-
-	for i in 1:81
-		element = parse(Int64,tile_string[i])
-		set_element!(board,((i-1) % 9) + 1, (i-1)÷9 + 1, element)
-	end
-
+	board = Board(tile_string)
 	solve!(board)
-
 	return board
 end
 
