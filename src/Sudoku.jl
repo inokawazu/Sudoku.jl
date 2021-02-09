@@ -67,7 +67,7 @@ function solve!(board::Board)
 	index = 1
 	backtrack_dict = Dict()
 
-	unknown_tiles = [(i,j) for i∈1:9,j∈1:9 if get_element(board, i, j) == 0][:]
+	unknown_tiles = [(j,i) for i∈1:9,j∈1:9 if get_element(board, i, j) == 0][:]
 
 	while !is_solved(board) && index <= length(unknown_tiles)
 
