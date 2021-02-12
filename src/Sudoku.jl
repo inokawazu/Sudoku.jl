@@ -22,6 +22,11 @@ struct Board
 	tiles::Array{Int64,2}
 end
 
+"""
+	`Board()`
+
+	`Board(; state=:unkown)` creates an board with all zeros (thus a board with no known spaces.)
+"""
 function Board(; state=:unknown)
 	(state == :unknown) && Board(zeros(Int64, 9, 9))
 end
