@@ -1,5 +1,9 @@
 module Sudoku
 
+export Board
+export solve
+export solve!
+
 """
 	`Board(array)`
 
@@ -103,6 +107,15 @@ function possible_moves(board::Board,row_num::Int64,col_num::Int64)
 													 && i∉get_block(board, row_num, col_num)]
 end
 
+
+"""
+	`solve!(board::Board)`
+
+	Changes solve to a solved board. This function returns nothing. 
+	The algorithim is a depth search. 
+
+	WARNING: If there are multiple solutionsm, this algorithm will not find both of them.
+"""
 function solve!(board::Board)
 	index = 1
 	backtrack_dict = Dict()
@@ -131,6 +144,11 @@ function solve!(board::Board)
 	end
 end
 
+"""
+	`solve(tile_string::AbstractString)`
+
+	`solve(tile_string)` returns a solved board, starting from the board given as a string.
+"""
 function solve(tile_string::AbstractString)
 	board = Board(tile_string)
 	solve!(board)
