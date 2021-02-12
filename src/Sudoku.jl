@@ -7,6 +7,14 @@ A struct that represents a Sudoku board. A 0 means the space is unknown and spac
 
 A 9×9 `array` can be used to construct.
 
+	`Board(string)`
+
+A board can be constructed with a `string` that is 81 in length an of only digit characters. 
+The string is read to fill the rows first from left to right, starting with the left most 
+character in the string first. 
+
+	ex. `Board("123456789890000000...")` = [[1 2 3 4 5 6 7 8 9]; [8 9 0 0 0 0 0 0 0 ]; ...] 
+
 Board properties...
 `tiles` = A 9×9 array of Int64
 """
