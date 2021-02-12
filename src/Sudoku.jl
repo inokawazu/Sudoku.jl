@@ -1,5 +1,15 @@
 module Sudoku
 
+"""
+	`Board(array)`
+
+A struct that represents a Sudoku board. A 0 means the space is unknown and spaces with 1 through 9 are tiles with those numbers. 
+
+A 9×9 `array` can be used to construct.
+
+Board properties...
+`tiles` = A 9×9 array of Int64
+"""
 struct Board
 	tiles::Array{Int64,2}
 end
