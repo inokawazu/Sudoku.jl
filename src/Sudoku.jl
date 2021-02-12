@@ -122,7 +122,7 @@ function solve!(board::Board)
 
 	unknown_tiles = [(i,j) for i∈1:9,j∈1:9 if get_element(board, i, j) == 0][:]
 
-	while !is_solved(board) && index <= length(unknown_tiles)
+	while !is_solved(board) && index <= length(unknown_tiles) && index > 0
 
 		row, column = unknown_tiles[index]
 
