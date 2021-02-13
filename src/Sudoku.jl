@@ -114,7 +114,7 @@ end
 	Changes solve to a solved board. This function returns nothing. 
 	The algorithim is a depth search. 
 
-	WARNING: If there are multiple solutionsm, this algorithm will not find both of them.
+	WARNING: If there are multiple solutions, this algorithm will not find both of them.
 """
 function solve!(board::Board)
 	index = 1
@@ -153,6 +153,12 @@ function solve(tile_string::AbstractString)
 	board = Board(tile_string)
 	solve!(board)
 	return board
+end
+
+function solve(board::Board)
+	solved_board = board
+	solve!(solved_board)
+	return solved_board
 end
 
 end # module
