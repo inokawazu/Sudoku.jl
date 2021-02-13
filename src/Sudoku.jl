@@ -1,5 +1,7 @@
 module Sudoku
 
+using Random
+
 export Board
 export solve
 export solve!
@@ -32,7 +34,15 @@ end
 	`Board(; state=:unkown)` creates an board with all zeros (thus a board with no known spaces.)
 """
 function Board(; state=:unknown)
-	(state == :unknown) && Board(zeros(Int64, 9, 9))
+	(state == :unknown) && return Board(zeros(Int64, 9, 9))
+
+	if state == :random_solved
+		board = Board(; state=:unknown)
+		solve!(board;shuffle=true)
+		return board
+	end
+
+	error("The there is not state option, $state.")
 end
 
 function Board(tile_string::AbstractString)
@@ -97,14 +107,18 @@ function set_element!(board::Board, row_num::Int64, col_num::Int64, element::Int
 	board.tiles[row_num,col_num] = element 
 end
 
-function possible_moves(board::Board,row_num::Int64,col_num::Int64)
+function possible_moves(board::Board,row_num::Int64,col_num::Int64; shuffle = false)
 	element = get_element(board,row_num, col_num)
 
 	element == 0 || return Int64[]
 
-	return [i for i ∈ 1:9 if i∉get_row(board, row_num) 
+	moves = [i for i ∈ 1:9 if i∉get_row(board, row_num) 
 													 && i∉get_column(board, col_num) 
 													 && i∉get_block(board, row_num, col_num)]
+
+	shuffle && Random.shuffle!(moves)
+
+	return moves
 end
 
 
@@ -116,7 +130,7 @@ end
 
 	WARNING: If there are multiple solutions, this algorithm will not find both of them.
 """
-function solve!(board::Board)
+function solve!(board::Board; shuffle = false)
 	index = 1
 	backtrack_dict = Dict()
 
@@ -127,7 +141,7 @@ function solve!(board::Board)
 		row, column = unknown_tiles[index]
 
 		if !haskey(backtrack_dict, (row, column))
-			push!(backtrack_dict, (row, column) => possible_moves(board, row, column))
+			push!(backtrack_dict, (row, column) => possible_moves(board, row, column; shuffle = shuffle))
 		end
 
 		if isempty(backtrack_dict[(row,column)])
@@ -149,9 +163,9 @@ end
 
 	`solve(tile_string)` returns a solved board, starting from the board given as a string.
 """
-function solve(tile_string::AbstractString)
+function solve(tile_string::AbstractString; shuffle = false)
 	board = Board(tile_string)
-	solve!(board)
+	solve!(board; shuffle = shuffle)
 	return board
 end
 
@@ -160,9 +174,9 @@ end
 
 	`solve(board)` returns a solved board, starting from a generic board.
 """
-function solve(board::Board)
+function solve(board::Board; shuffle= false)
 	solved_board = board
-	solve!(solved_board)
+	solve!(solved_board; shuffle = shuffle)
 	return solved_board
 end
 
