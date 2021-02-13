@@ -155,6 +155,11 @@ function solve(tile_string::AbstractString)
 	return board
 end
 
+"""
+	`solve(board::Board)`
+
+	`solve(board)` returns a solved board, starting from a generic board.
+"""
 function solve(board::Board)
 	solved_board = board
 	solve!(solved_board)
