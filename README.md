@@ -10,7 +10,7 @@ using Sudoku
 
 solved_sudoku_board = solve("530070000600195000098000060800060003400803001700020006060000280000419005000080079")
 
-println(solved_sudoku_board) 
+println(solved_sudoku_board.tiles) 
 # returns [5 3 4 6 7 8 9 1 2; 
 #          6 7 2 1 9 5 3 4 8; 
 #          1 9 8 3 4 2 5 6 7; 
