@@ -1,6 +1,36 @@
 # Sudoku.jl
 This is my implementation of sudoku in julia. The program solves Sudoku boards with a depth-first search algorithm.
 
+## Example
+
+### For solving a generic Sudoku board (preferably one that has only one solution).
+
+```julia
+using Sudoku
+
+solved_sudoku_board = solve("530070000600195000098000060800060003400803001700020006060000280000419005000080079")
+
+println(solved_sudoku_board) 
+# returns [5 3 4 6 7 8 9 1 2; 
+#          6 7 2 1 9 5 3 4 8; 
+#          1 9 8 3 4 2 5 6 7; 
+#          8 5 9 7 6 1 4 2 3; 
+#          4 2 6 8 5 3 7 9 1; 
+#          7 1 3 9 2 4 8 5 6; 
+#          9 6 1 5 3 7 2 8 4; 
+#          2 8 7 4 1 9 6 3 5; 
+#          3 4 5 2 8 6 1 7 9]
+```
+
+### For making a randomly solved Sudoku board.
+```julia
+using Sudoku
+
+random_solved_sudoku_board = Board(;shuffle=true)
+
+println(random_solved_sudoku_board.tiles)
+```
+
 ## Installation
 
 You can add this package with the following in your REPL.
