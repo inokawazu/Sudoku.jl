@@ -1,6 +1,14 @@
 # Sudoku.jl
 This is my implementation of sudoku in julia. The program solves Sudoku boards with a depth-first search algorithm.
 
+## Installation
+
+You can add this package with the following in your REPL.
+
+```julia
+import Pkg; Pkg.add("git@github.com:kawazugit/Sudoku.jl.git")
+```
+
 ## Usage
 
 ### Making a board.
