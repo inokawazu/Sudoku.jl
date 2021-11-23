@@ -1,8 +1,3 @@
-To-Do
-- [ ] Implement a way to generate puzzles
-- [ ] Implement difficulty levels to the puzzles
-- [ ] Implement Hints!
-
 # Sudoku.jl
 This is my implementation of sudoku in julia. The program solves Sudoku boards with a depth-first search algorithm.
 
